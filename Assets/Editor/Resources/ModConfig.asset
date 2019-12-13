@@ -14,7 +14,14 @@ MonoBehaviour:
   id: codenames
   title: Codenames
   author: TasThing
-  description: 
+  description: 'The bond''s Name. James Name. Bond Name''s The James.
+
+
+    CW: This module contains a gunshot sound effect which may be triggering to some
+    users.
+
+
+    Module idea and implementation by TasThing.'
   version: 
   outputFolder: build
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 2800000, guid: c66c122af8d2a6541b0c321d7de0173f, type: 3}

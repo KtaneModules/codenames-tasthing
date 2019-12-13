@@ -29,7 +29,7 @@ public static class Words
     new string[3][]
     {
       new string[15] { "Party", "Election", "Vote", "Caucus", "Congress", "Senate", "President", "Branch", "Balance", "Bill", "Partisanship", "Debate", "Speech", "Judge", "Mayor" }, // Politics
-      new string[15] { "Ball", "Racket", "Base", "Helment", "Coach", "Team", "Referee", "Athlete", "Basket", "Pentalty", "Kick", "Throw", "Net", "Field", "Stadium" }, // Sports
+      new string[15] { "Ball", "Racket", "Base", "Helmet", "Coach", "Team", "Referee", "Athlete", "Basket", "Penalty", "Kick", "Throw", "Net", "Field", "Stadium" }, // Sports
       new string[15] { "Card", "Dice", "Board", "Deck", "Token", "Meeple", "Tile", "Roll", "Draw", "Suit", "Jack", "Yahtzee", "Checkers", "Monopoly", "Chess" } // Tabletop
     }
   };
