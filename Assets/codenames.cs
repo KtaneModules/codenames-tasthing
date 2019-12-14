@@ -282,10 +282,8 @@ public class codenames : MonoBehaviour
                         temp += " " + parameters[i];
                 }
                 for (int i = 0; i < grid.Length; i++)
-                {
                     if (grid[i].EqualsIgnoreCase(temp))
                         index = i;
-                }
                 if(index == -1)
                 {
                     yield return "sendtochaterror The specified word '"+temp+"' is not on any of the cards!";
@@ -297,8 +295,10 @@ public class codenames : MonoBehaviour
                 else if(aboutToSolve(index))
                     yield return "solve";
                 while (!mainword.text.EqualsIgnoreCase(temp))
+                {
                     yield return "trycancel Card submission halted due to a request to cancel!";
                     yield return new WaitForSeconds(0.1f);
+                }
                 mainbutton.OnInteract();
             }
             else
@@ -314,10 +314,11 @@ public class codenames : MonoBehaviour
         {
             if(solution[i] == true)
             {
-                while (!grid[i].EqualsIgnoreCase(mainword.text))
-                    yield return new WaitForSeconds(0.1f);
-                mainbutton.OnInteract();
+              while (!grid[i].EqualsIgnoreCase(mainword.text))
+                yield return new WaitForSeconds(0.1f);
+              mainbutton.OnInteract();
             }
         }
+        yield return true;
     }
 }
