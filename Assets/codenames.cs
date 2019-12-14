@@ -125,7 +125,7 @@ public class codenames : MonoBehaviour
             else
                 cblindtext.GetComponent<TextMesh>().text = "Pink";
         }
-        if(autosolve == true)
+        if(speed == true)
            yield return new WaitForSeconds(0.2f);
         else
            yield return new WaitForSeconds(1f);
@@ -222,7 +222,13 @@ public class codenames : MonoBehaviour
     }
 
     //twitch plays
-    private bool autosolve = false;
+    private bool speed = false;
+
+    private IEnumerator cancelSpeed()
+    {
+        yield return new WaitForSeconds(5.0f);
+        speed = false;
+    }
 
     private bool aboutToSolve(int index)
     {
@@ -230,15 +236,15 @@ public class codenames : MonoBehaviour
         int counter2 = 0;
         bool correct = false;
         for(int i = 0; i < solution.Length; i++)
-            if(solution[i] == true)
-                counter++;
+          if(solution[i] == true)
+            counter++;
         for (int i = 0; i < pressed.Length; i++)
-            if (pressed[i] == true)
-                counter2++;
+          if (pressed[i] == true)
+            counter2++;
         if(solution[index] == true && pressed[index] == false)
-            correct = true;
+          correct = true;
         if((counter2 == (counter - 1)) && correct)
-            return true;
+          return true;
         return false;
     }
 
@@ -294,11 +300,14 @@ public class codenames : MonoBehaviour
                     yield return "strike";
                 else if(aboutToSolve(index))
                     yield return "solve";
+                speed = true;
+                StartCoroutine(cancelSpeed());
                 while (!mainword.text.EqualsIgnoreCase(temp))
                 {
                     yield return "trycancel Card submission halted due to a request to cancel!";
                     yield return new WaitForSeconds(0.1f);
                 }
+                speed = false;
                 mainbutton.OnInteract();
             }
             else
@@ -309,14 +318,14 @@ public class codenames : MonoBehaviour
 
     IEnumerator TwitchHandleForcedSolve()
     {
-        autosolve = true;
+        speed = true;
         for(int i = 0; i < solution.Length; i++)
         {
             if(solution[i] == true)
             {
-              while (!grid[i].EqualsIgnoreCase(mainword.text))
-                yield return new WaitForSeconds(0.1f);
-              mainbutton.OnInteract();
+                while (!grid[i].EqualsIgnoreCase(mainword.text))
+                    yield return new WaitForSeconds(0.1f);
+                mainbutton.OnInteract();
             }
         }
         yield return true;
