@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using KModkit;
 using rnd = UnityEngine.Random;
@@ -10,6 +11,10 @@ public class codenames : MonoBehaviour
 {
     public KMAudio Audio;
     public KMBombInfo bomb;
+    public KMColorblindMode Colorblind;
+    private bool colorblindActive = false;
+    public GameObject cblindback;
+    public GameObject cblindtext;
 
     public TextMesh mainword;
     public KMSelectable mainbutton;
@@ -43,9 +48,13 @@ public class codenames : MonoBehaviour
     void Awake()
     {
       moduleId = moduleIdCounter++;
+      colorblindActive = Colorblind.ColorblindModeActive;
+      cblindback.GetComponent<TextMesh>().text = "";
+      cblindtext.GetComponent<TextMesh>().text = "";
       togglebutton.OnInteract += delegate () { toggleCycling(); return false; };
       mainbutton.OnInteract += delegate () { submit(); return false; };
       bomb.OnBombExploded += delegate() { assassinated = true; };
+      GetComponent<KMBombModule>().OnActivate += OnActivate;
     }
 
     void Start()
@@ -58,6 +67,22 @@ public class codenames : MonoBehaviour
       else
         ruleindex = 2;
       reset();
+    }
+
+    void OnActivate()
+    {
+        Debug.LogFormat("[Codenames #{0}] Colorblind mode: {1}", moduleId, colorblindActive);
+        if (colorblindActive)
+        {
+            if(colornames[teamindex - 1].Equals("blue"))
+            {
+                cblindback.GetComponent<TextMesh>().text = "Blue";
+            }
+            else
+            {
+                cblindback.GetComponent<TextMesh>().text = "Red";
+            }
+        }
     }
 
     void reset()
@@ -97,7 +122,25 @@ public class codenames : MonoBehaviour
       {
         mainword.text = grid[posix];
         mainword.color = ((Cards.possiblecards[cardindex][rotationindex][posix] == 1 || Cards.possiblecards[cardindex][rotationindex][posix] == 2) ? wordcolors[0] : wordcolors[1]);
-        yield return new WaitForSeconds(1f);
+        if (colorblindActive)
+        {
+            if(mainword.color == wordcolors[1])
+            {
+                cblindtext.GetComponent<TextMesh>().text = "Black";
+            }
+            else
+            {
+                cblindtext.GetComponent<TextMesh>().text = "Pink";
+            }
+        }
+        if(autosolve == true)
+        {
+           yield return new WaitForSeconds(0.2f);
+        }
+        else
+        {
+           yield return new WaitForSeconds(1f);
+        }
         posix = (posix + 1) % 25;
       }
     }
@@ -127,6 +170,8 @@ public class codenames : MonoBehaviour
         {
           Debug.LogFormat("[Codenames #{0}] Module solved.", moduleId);
           moduleSolved = true;
+          cblindback.GetComponent<TextMesh>().text = "";
+          cblindtext.GetComponent<TextMesh>().text = "";
           StartCoroutine(solve("Solved!"));
         }
       }
@@ -186,5 +231,137 @@ public class codenames : MonoBehaviour
         cycler = StartCoroutine(cycleWords());
         isCycling = true;
       }
+    }
+
+    //twitch plays
+    private bool autosolve = false;
+
+    private bool aboutToSolve(int index)
+    {
+        int counter = 0;
+        int counter2 = 0;
+        bool correct = false;
+        for(int i = 0; i < solution.Length; i++)
+        {
+            if(solution[i] == true)
+            {
+                counter++;
+            }
+        }
+        for (int i = 0; i < pressed.Length; i++)
+        {
+            if (pressed[i] == true)
+            {
+                counter2++;
+            }
+        }
+        if(solution[index] == true && pressed[index] == false)
+        {
+            correct = true;
+        }
+        if((counter2 == (counter - 1)) && correct)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    #pragma warning disable 414
+    private readonly string TwitchHelpMessage = @"!{0} submit <word> [Submits the card with the specified word] | !{0} colorblind [Toggles colorblind mode]";
+    #pragma warning restore 414
+    IEnumerator ProcessTwitchCommand(string command)
+    {
+        if (Regex.IsMatch(command, @"^\s*colorblind\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        {
+            yield return null;
+            Debug.LogFormat("[Codenames #{0}] Colorblind mode toggled! (TP)", moduleId);
+            if (colorblindActive)
+            {
+                colorblindActive = false;
+                cblindback.GetComponent<TextMesh>().text = "";
+                cblindtext.GetComponent<TextMesh>().text = "";
+            }
+            else
+            {
+                colorblindActive = true;
+                if (colornames[teamindex - 1].Equals("blue"))
+                {
+                    cblindback.GetComponent<TextMesh>().text = "Blue";
+                }
+                else
+                {
+                    cblindback.GetComponent<TextMesh>().text = "Red";
+                }
+            }
+            yield break;
+        }
+        string[] parameters = command.Split(' ');
+        if (Regex.IsMatch(parameters[0], @"^\s*submit\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        {
+            if(parameters.Length >= 2)
+            {
+                string temp = "";
+                int index = -1;
+                for(int i = 1; i < parameters.Length; i++)
+                {
+                    if(i == 1)
+                    {
+                        temp += parameters[i];
+                    }
+                    else
+                    {
+                        temp += " " + parameters[i];
+                    }
+                }
+                for (int i = 0; i < grid.Length; i++)
+                {
+                    if (grid[i].EqualsIgnoreCase(temp))
+                    {
+                        index = i;
+                    }
+                }
+                if(index == -1)
+                {
+                    yield return "sendtochaterror The specified word '"+temp+"' is not on any of the cards!";
+                    yield break;
+                }
+                yield return null;
+                if(solution[index] == false)
+                {
+                    yield return "strike";
+                }
+                else if(aboutToSolve(index))
+                {
+                    yield return "solve";
+                }
+                while (!mainword.text.EqualsIgnoreCase(temp))
+                {
+                    yield return "trycancel Card submission halted due to a request to cancel!";
+                    yield return new WaitForSeconds(0.1f);
+                }
+                mainbutton.OnInteract();
+            }
+            else
+            {
+                yield return "sendtochaterror Please include a word to submit!";
+            }
+            yield break;
+        }
+    }
+
+    IEnumerator TwitchHandleForcedSolve()
+    {
+        autosolve = true;
+        for(int i = 0; i < solution.Length; i++)
+        {
+            if(solution[i] == true)
+            {
+                while (!grid[i].EqualsIgnoreCase(mainword.text))
+                {
+                    yield return new WaitForSeconds(0.1f);
+                }
+                mainbutton.OnInteract();
+            }
+        }
     }
 }
