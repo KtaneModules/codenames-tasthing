@@ -75,13 +75,9 @@ public class codenames : MonoBehaviour
         if (colorblindActive)
         {
             if(colornames[teamindex - 1].Equals("blue"))
-            {
                 cblindback.GetComponent<TextMesh>().text = "Blue";
-            }
             else
-            {
                 cblindback.GetComponent<TextMesh>().text = "Red";
-            }
         }
     }
 
@@ -125,22 +121,14 @@ public class codenames : MonoBehaviour
         if (colorblindActive)
         {
             if(mainword.color == wordcolors[1])
-            {
                 cblindtext.GetComponent<TextMesh>().text = "Black";
-            }
             else
-            {
                 cblindtext.GetComponent<TextMesh>().text = "Pink";
-            }
         }
         if(autosolve == true)
-        {
            yield return new WaitForSeconds(0.2f);
-        }
         else
-        {
            yield return new WaitForSeconds(1f);
-        }
         posix = (posix + 1) % 25;
       }
     }
@@ -242,27 +230,15 @@ public class codenames : MonoBehaviour
         int counter2 = 0;
         bool correct = false;
         for(int i = 0; i < solution.Length; i++)
-        {
             if(solution[i] == true)
-            {
                 counter++;
-            }
-        }
         for (int i = 0; i < pressed.Length; i++)
-        {
             if (pressed[i] == true)
-            {
                 counter2++;
-            }
-        }
         if(solution[index] == true && pressed[index] == false)
-        {
             correct = true;
-        }
         if((counter2 == (counter - 1)) && correct)
-        {
             return true;
-        }
         return false;
     }
 
@@ -285,13 +261,9 @@ public class codenames : MonoBehaviour
             {
                 colorblindActive = true;
                 if (colornames[teamindex - 1].Equals("blue"))
-                {
                     cblindback.GetComponent<TextMesh>().text = "Blue";
-                }
                 else
-                {
                     cblindback.GetComponent<TextMesh>().text = "Red";
-                }
             }
             yield break;
         }
@@ -305,20 +277,14 @@ public class codenames : MonoBehaviour
                 for(int i = 1; i < parameters.Length; i++)
                 {
                     if(i == 1)
-                    {
                         temp += parameters[i];
-                    }
                     else
-                    {
                         temp += " " + parameters[i];
-                    }
                 }
                 for (int i = 0; i < grid.Length; i++)
                 {
                     if (grid[i].EqualsIgnoreCase(temp))
-                    {
                         index = i;
-                    }
                 }
                 if(index == -1)
                 {
@@ -327,24 +293,16 @@ public class codenames : MonoBehaviour
                 }
                 yield return null;
                 if(solution[index] == false)
-                {
                     yield return "strike";
-                }
                 else if(aboutToSolve(index))
-                {
                     yield return "solve";
-                }
                 while (!mainword.text.EqualsIgnoreCase(temp))
-                {
                     yield return "trycancel Card submission halted due to a request to cancel!";
                     yield return new WaitForSeconds(0.1f);
-                }
                 mainbutton.OnInteract();
             }
             else
-            {
                 yield return "sendtochaterror Please include a word to submit!";
-            }
             yield break;
         }
     }
@@ -357,9 +315,7 @@ public class codenames : MonoBehaviour
             if(solution[i] == true)
             {
                 while (!grid[i].EqualsIgnoreCase(mainword.text))
-                {
                     yield return new WaitForSeconds(0.1f);
-                }
                 mainbutton.OnInteract();
             }
         }
