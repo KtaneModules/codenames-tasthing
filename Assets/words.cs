@@ -1,6 +1,6 @@
 public static class Words
 {
-  public static readonly string[][][] possiblewords = new string [5][][]
+  public static readonly string[][][] possibleWords = new string [5][][]
   {
     new string[3][]
     {

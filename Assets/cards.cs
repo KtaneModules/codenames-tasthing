@@ -1,6 +1,6 @@
 public static class Cards
 {
-  public static readonly int[][][] possiblecards = new int[5][][]
+  public static readonly int[][][] possibleCards = new int[5][][]
   {
     /*
     0 = Bystander
