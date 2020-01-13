@@ -71,7 +71,6 @@ public class codenames : MonoBehaviour
 
     void OnActivate()
     {
-        Debug.LogFormat("[Codenames #{0}] Colorblind mode: {1}", moduleId, colorblindActive);
         if (colorblindActive)
         {
             if (colorNames[teamIndex - 1].Equals("blue"))
