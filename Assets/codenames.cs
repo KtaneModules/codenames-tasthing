@@ -33,6 +33,7 @@ public class codenames : MonoBehaviour
     private bool[] solution = new bool[25];
     private bool[] pressed = new bool[25];
     private bool isCycling = true;
+    private bool solving = false;
 
     private static readonly string[] rotationNames = new string[4] { "not rotated", "rotated 90 degrees clock wise", "rotated 180 degrees", "rotated 90 degrees counterclockwise" };
     private static readonly string[] colorNames = new string[2] { "red", "blue" };
@@ -155,6 +156,7 @@ public class codenames : MonoBehaviour
             }
             if (pressed.SequenceEqual(solution))
             {
+                solving = true;
                 Debug.LogFormat("[Codenames #{0}] Module solved.", moduleId);
                 moduleSolved = true;
                 cblindback.GetComponent<TextMesh>().text = "";
@@ -188,6 +190,7 @@ public class codenames : MonoBehaviour
         }
         if (moduleSolved)
         {
+            solving = false;
             GetComponent<KMBombModule>().HandlePass();
             audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.CorrectChime, transform);
         }
@@ -247,9 +250,9 @@ public class codenames : MonoBehaviour
         return false;
     }
 
-#pragma warning disable 414
+    #pragma warning disable 414
     private readonly string TwitchHelpMessage = @"!{0} submit <word> [Submits the card with the specified word] | !{0} colorblind [Toggles colorblind mode]";
-#pragma warning restore 414
+    #pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string command)
     {
         if (Regex.IsMatch(command, @"^\s*colorblind\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
@@ -327,6 +330,6 @@ public class codenames : MonoBehaviour
                 mainbutton.OnInteract();
             }
         }
-        yield return true;
+        while (solving) { yield return true; }
     }
 }
