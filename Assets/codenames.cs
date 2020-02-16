@@ -20,7 +20,6 @@ public class codenames : MonoBehaviour
     public KMSelectable mainbutton;
     public KMSelectable togglebutton;
     public Renderer modulebackground;
-    public Material[] teamcolors;
     public Color[] wordcolors;
     public Color[] modulecolors;
 

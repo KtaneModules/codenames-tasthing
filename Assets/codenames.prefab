@@ -891,9 +891,6 @@ MonoBehaviour:
   mainbutton: {fileID: 114507903428683676}
   togglebutton: {fileID: 114392019598069402}
   modulebackground: {fileID: 23395254703191502}
-  teamcolors:
-  - {fileID: 2100000, guid: 86b7a7d93e076614aa622dd776639557, type: 2}
-  - {fileID: 2100000, guid: 88ac1ed548a3f384e95bd3350b9643b5, type: 2}
   wordcolors:
   - {r: 0.9016227, g: 0.3501838, b: 0.9338235, a: 1}
   - {r: 0, g: 0, b: 0, a: 1}
