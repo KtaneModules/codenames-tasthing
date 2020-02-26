@@ -9,7 +9,7 @@ using rnd = UnityEngine.Random;
 
 public class codenames : MonoBehaviour
 {
-    public KMAudio audio;
+    public new KMAudio audio;
     public KMBombInfo bomb;
     public KMColorblindMode Colorblind;
     private bool colorblindActive = false;
@@ -83,7 +83,7 @@ public class codenames : MonoBehaviour
     void reset()
     {
         var attempts = 0;
-    	tryAgain:
+    tryAgain:
         teamIndex = rnd.Range(1, 3);
         cardIndex = rnd.Range(0, 5);
         rotationIndex = rnd.Range(0, 4);
@@ -249,9 +249,9 @@ public class codenames : MonoBehaviour
         return false;
     }
 
-    #pragma warning disable 414
+#pragma warning disable 414
     private readonly string TwitchHelpMessage = @"!{0} submit <word> [Submits the card with the specified word] | !{0} colorblind [Toggles colorblind mode]";
-    #pragma warning restore 414
+#pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string command)
     {
         if (Regex.IsMatch(command, @"^\s*colorblind\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))

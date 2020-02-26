@@ -1,7 +1,7 @@
 public static class Words
 {
-  public static readonly string[][][] possibleWords = new string [5][][]
-  {
+    public static readonly string[][][] possibleWords = new string[5][][]
+    {
     new string[3][]
     {
       new string[15] { "Snowflake", "Icicle", "Zamboni", "Snowman", "Chilled", "Igloo", "Aurora", "Sleet", "Hypothermia", "Freeze", "Hyperborean", "Slush", "Winter", "December", "Arctic" }, // Cold
@@ -12,7 +12,7 @@ public static class Words
     {
       new string[15] { "Jigsaw", "Hunt", "Crossword", "Cryptic", "Sudoku", "Hint", "Solution", "Erratum", "Answer", "Index", "Encode", "Cipher", "Meta", "Logic", "Shikaku" }, // Puzzles
       new string[15] { "Accent", "Dialect", "Dictionary", "Diacritic", "Translate", "Lexicon", "Letter", "Alphabet", "Glyph", "Understand", "Localize", "Etymology", "Semantics", "Grammar", "Word" }, // Language
-      new string[15] { "Ocean", "Ship", "Navy", "Sails", "Compass", "Map", "Treasure", "Pirate", "Sailor", "Captain", "Shantee", "Seven Seas", "Fishing", "Cruise", "Landlubber" } // Maritime
+      new string[15] { "Ocean", "Ship", "Navy", "Sails", "Compass", "Map", "Treasure", "Pirate", "Sailor", "Captain", "Shanty", "Seven Seas", "Fishing", "Cruise", "Landlubber" } // Maritime
     },
     new string[3][]
     {
@@ -32,5 +32,5 @@ public static class Words
       new string[15] { "Ball", "Racket", "Base", "Helmet", "Coach", "Team", "Referee", "Athlete", "Basket", "Penalty", "Kick", "Throw", "Net", "Field", "Stadium" }, // Sports
       new string[15] { "Card", "Dice", "Board", "Deck", "Token", "Meeple", "Tile", "Roll", "Draw", "Suit", "Jack", "Yahtzee", "Checkers", "Monopoly", "Chess" } // Tabletop
     }
-  };
+    };
 }
