@@ -83,7 +83,7 @@ public class codenames : MonoBehaviour
     void reset()
     {
         var attempts = 0;
-    tryAgain:
+        tryAgain:
         teamIndex = rnd.Range(1, 3);
         cardIndex = rnd.Range(0, 5);
         rotationIndex = rnd.Range(0, 4);
