@@ -34,7 +34,7 @@ public class codenames : MonoBehaviour
     private bool isCycling = true;
     private bool solving = false;
 
-    private static readonly string[] rotationNames = new string[4] { "not rotated", "rotated 90 degrees clock wise", "rotated 180 degrees", "rotated 90 degrees counterclockwise" };
+    private static readonly string[] rotationNames = new string[4] { "not rotated", "rotated 90° clockwise", "rotated 180°", "rotated 90° counterclockwise" };
     private static readonly string[] colorNames = new string[2] { "red", "blue" };
     private static readonly string[] soundNames = new string[6] { "card1", "card2", "card3", "card4", "card5", "gunshot" };
 
