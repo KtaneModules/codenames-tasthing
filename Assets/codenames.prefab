@@ -223,9 +223,9 @@ GameObject:
   - component: {fileID: 114362555509535318}
   - component: {fileID: 114212602564178874}
   - component: {fileID: 114221075226099596}
-  - component: {fileID: 114265780741413012}
   - component: {fileID: 114712797181976816}
   - component: {fileID: 114723399550302690}
+  - component: {fileID: 114736842736519138}
   m_Layer: 0
   m_Name: codenames
   m_TagString: Untagged
@@ -702,18 +702,6 @@ MonoBehaviour:
   ModuleType: codenames
   ModuleDisplayName: Codenames
   RequiresTimerVisibility: 0
---- !u!114 &114265780741413012
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1954350148131442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1cfb889a07d5fd4e9baed7960bb397f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _colorblindMode: 0
 --- !u!114 &114290440484484030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -884,7 +872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audio: {fileID: 114362555509535318}
   bomb: {fileID: 114212602564178874}
-  Colorblind: {fileID: 114265780741413012}
+  Colorblind: {fileID: 114736842736519138}
   cblindback: {fileID: 1542183873750374}
   cblindtext: {fileID: 1927051881870306}
   mainword: {fileID: 102177150040834234}
@@ -899,3 +887,15 @@ MonoBehaviour:
   modulecolors:
   - {r: 0.88235295, g: 0.33088237, b: 0.33088237, a: 1}
   - {r: 0.42576775, g: 0.75580174, b: 0.9191176, a: 1}
+--- !u!114 &114736842736519138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954350148131442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cadefbb4e8c0c743893b8a7efee5ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorblindMode: 0

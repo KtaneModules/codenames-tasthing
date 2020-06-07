@@ -51,8 +51,8 @@ public class codenames : MonoBehaviour
         colorblindActive = Colorblind.ColorblindModeActive;
         cblindback.GetComponent<TextMesh>().text = "";
         cblindtext.GetComponent<TextMesh>().text = "";
-        togglebutton.OnInteract += delegate () { toggleCycling(); return false; };
-        mainbutton.OnInteract += delegate () { submit(); return false; };
+        togglebutton.OnInteract += delegate () { ToggleCycling(); return false; };
+        mainbutton.OnInteract += delegate () { Submit(); return false; };
         bomb.OnBombExploded += delegate () { assassinated = true; };
         GetComponent<KMBombModule>().OnActivate += OnActivate;
     }
@@ -66,7 +66,7 @@ public class codenames : MonoBehaviour
             ruleIndex = 1;
         else
             ruleIndex = 2;
-        reset();
+        Reset();
     }
 
     void OnActivate()
@@ -80,7 +80,7 @@ public class codenames : MonoBehaviour
         }
     }
 
-    void reset()
+    void Reset()
     {
         var attempts = 0;
         tryAgain:
@@ -108,10 +108,10 @@ public class codenames : MonoBehaviour
         foreach (string word in grid)
             if (solution[Array.IndexOf(grid, word)])
                 Debug.LogFormat("[Codenames #{0}] You need to submit {1}.", moduleId, word);
-        cycler = StartCoroutine(cycleWords());
+        cycler = StartCoroutine(CycleWords());
     }
 
-    private IEnumerator cycleWords()
+    private IEnumerator CycleWords()
     {
         while (true)
         {
@@ -132,42 +132,39 @@ public class codenames : MonoBehaviour
         }
     }
 
-    void submit()
+    void Submit()
     {
         var ix = posIx;
-        if (!moduleSolved && !detonating && !pressed[ix])
+        if (moduleSolved || detonating || pressed[ix])
+            return;
+        if (Cards.possibleCards[cardIndex][rotationIndex][ix] == 3)
         {
-            if (Cards.possibleCards[cardIndex][rotationIndex][ix] == 3)
-            {
-                Debug.LogFormat("[Codenames #{0}] You submitted the assassin.", moduleId);
-                StartCoroutine(solve("Big Mistake."));
-            }
-            else if (!solution[ix])
-            {
-                GetComponent<KMBombModule>().HandleStrike();
-                Debug.LogFormat("[Codenames #{0}] You submitted {1}. That was incorrect. Strike!", moduleId, grid[ix]);
-            }
-            else
-            {
-                Debug.LogFormat("[Codenames #{0}] You submitted {1}.", moduleId, grid[ix]);
-                audio.PlaySoundAtTransform(soundNames[rnd.Range(0, 5)], mainbutton.transform);
-                pressed[ix] = true;
-            }
-            if (pressed.SequenceEqual(solution))
-            {
-                solving = true;
-                Debug.LogFormat("[Codenames #{0}] Module solved.", moduleId);
-                moduleSolved = true;
-                cblindback.GetComponent<TextMesh>().text = "";
-                cblindtext.GetComponent<TextMesh>().text = "";
-                StartCoroutine(solve("Solved!"));
-            }
+            Debug.LogFormat("[Codenames #{0}] You submitted the assassin.", moduleId);
+            StartCoroutine(Solve("Big Mistake."));
+        }
+        else if (!solution[ix])
+        {
+            GetComponent<KMBombModule>().HandleStrike();
+            Debug.LogFormat("[Codenames #{0}] You submitted {1}. That was incorrect. Strike!", moduleId, grid[ix]);
         }
         else
-            return;
+        {
+            Debug.LogFormat("[Codenames #{0}] You submitted {1}.", moduleId, grid[ix]);
+            audio.PlaySoundAtTransform(soundNames[rnd.Range(0, 5)], mainbutton.transform);
+            pressed[ix] = true;
+        }
+        if (pressed.SequenceEqual(solution))
+        {
+            solving = true;
+            Debug.LogFormat("[Codenames #{0}] Module solved!", moduleId);
+            moduleSolved = true;
+            cblindback.GetComponent<TextMesh>().text = "";
+            cblindtext.GetComponent<TextMesh>().text = "";
+            StartCoroutine(Solve("Solved!"));
+        }
     }
 
-    private IEnumerator solve(string nextmessage)
+    private IEnumerator Solve(string nextmessage)
     {
         StopCoroutine(cycler);
         var currentmessage = mainword.text;
@@ -206,7 +203,7 @@ public class codenames : MonoBehaviour
         }
     }
 
-    void toggleCycling()
+    void ToggleCycling()
     {
         togglebutton.AddInteractionPunch(.5f);
         audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, togglebutton.transform);
@@ -217,7 +214,7 @@ public class codenames : MonoBehaviour
         }
         else
         {
-            cycler = StartCoroutine(cycleWords());
+            cycler = StartCoroutine(CycleWords());
             isCycling = true;
         }
     }
@@ -249,9 +246,9 @@ public class codenames : MonoBehaviour
         return false;
     }
 
-#pragma warning disable 414
+    #pragma warning disable 414
     private readonly string TwitchHelpMessage = @"!{0} submit <word> [Submits the card with the specified word] | !{0} colorblind [Toggles colorblind mode]";
-#pragma warning restore 414
+    #pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string command)
     {
         if (Regex.IsMatch(command, @"^\s*colorblind\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
