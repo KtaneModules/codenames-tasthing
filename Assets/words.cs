@@ -23,7 +23,7 @@ public static class Words
     new string[3][]
     {
       new string[15] { "Number", "Calculator", "Plus", "Graph", "Calculus", "Negative", "Modulo", "Division", "Zero", "Matrix", "Gradient", "Voronoi", "Euler", "Integer", "Geometry" }, // Math
-      new string[15] { "War", "Battle", "Leader", "Country", "Nation", "Empire", "Conquer", "Diplomat", "King", "Revolution", "Culture", "Age", "Artifact", "Figurehead", "Document" }, // History
+      new string[15] { "War", "Battle", "Leader", "Country", "Nation", "Empire", "Conquer", "Royalty", "King", "Revolution", "Culture", "Age", "Artifact", "Figurehead", "Document" }, // History
       new string[15] { "Arm", "Leg", "Hand", "Head", "Hair", "Torso", "Elbow", "Finger", "Heart", "Brain", "Knee", "Foot", "Toe", "Hips", "Weenus" } // Body
     },
     new string[3][]
