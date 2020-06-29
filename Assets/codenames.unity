@@ -201,6 +201,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114848120511536268, guid: 8814ea52310d2614a9feda02ec355ae4,
+        type: 2}
+      propertyPath: AudioClips.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 439642, guid: 8814ea52310d2614a9feda02ec355ae4, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -249,6 +254,36 @@ Prefab:
       value: 
       objectReference: {fileID: 12800000, guid: 451d40bceebd28f4d8d52ce2127536e7,
         type: 3}
+    - target: {fileID: 114848120511536268, guid: 8814ea52310d2614a9feda02ec355ae4,
+        type: 2}
+      propertyPath: AudioClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4c0a542bf307434458488da3c21c64bf, type: 3}
+    - target: {fileID: 114848120511536268, guid: 8814ea52310d2614a9feda02ec355ae4,
+        type: 2}
+      propertyPath: AudioClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: e338bf2d98cc91a4aa007653b108f2df, type: 3}
+    - target: {fileID: 114848120511536268, guid: 8814ea52310d2614a9feda02ec355ae4,
+        type: 2}
+      propertyPath: AudioClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 296e53dd898529f40949bd00d754d712, type: 3}
+    - target: {fileID: 114848120511536268, guid: 8814ea52310d2614a9feda02ec355ae4,
+        type: 2}
+      propertyPath: AudioClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 96a4a1419245ee146967f3bd0dd90a24, type: 3}
+    - target: {fileID: 114848120511536268, guid: 8814ea52310d2614a9feda02ec355ae4,
+        type: 2}
+      propertyPath: AudioClips.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: e2185768bc0704541b8f073d395113d8, type: 3}
+    - target: {fileID: 114848120511536268, guid: 8814ea52310d2614a9feda02ec355ae4,
+        type: 2}
+      propertyPath: AudioClips.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: b67d9c7dbb3cc514dae9193637c1964d, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8814ea52310d2614a9feda02ec355ae4, type: 2}
   m_IsPrefabParent: 0
