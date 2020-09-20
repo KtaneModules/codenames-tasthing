@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 114221075226099596}
   - component: {fileID: 114712797181976816}
   - component: {fileID: 114723399550302690}
-  - component: {fileID: 114017144993650488}
+  - component: {fileID: 114452050214781964}
   m_Layer: 0
   m_Name: codenames
   m_TagString: Untagged
@@ -355,7 +355,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1927051881870306}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.0152, z: -0.021}
+  m_LocalPosition: {x: 0, y: 0.0152, z: 0.0206}
   m_LocalScale: {x: 0.0012, y: 0.0012, z: 0.0012}
   m_Children: []
   m_Father: {fileID: 4906335538509786}
@@ -739,18 +739,6 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
---- !u!114 &114017144993650488
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1954350148131442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1cfb889a07d5fd4e9baed7960bb397f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _colorblindMode: 0
 --- !u!114 &114082295458792642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -849,6 +837,18 @@ MonoBehaviour:
   AllowSelectionWrapY: 0
   ForceSelectionHighlight: 0
   ForceInteractionHighlight: 0
+--- !u!114 &114452050214781964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954350148131442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cadefbb4e8c0c743893b8a7efee5ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorblindMode: 0
 --- !u!114 &114473560378577232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -972,7 +972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audio: {fileID: 114362555509535318}
   bomb: {fileID: 114212602564178874}
-  Colorblind: {fileID: 114017144993650488}
+  Colorblind: {fileID: 114452050214781964}
   cblindback: {fileID: 1542183873750374}
   cblindtext: {fileID: 1927051881870306}
   mainword: {fileID: 102177150040834234}
