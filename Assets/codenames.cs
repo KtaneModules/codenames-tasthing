@@ -94,6 +94,11 @@ public class codenames : MonoBehaviour
                 while (grid.Take(i - 1).Any(x => x == grid[i]))
                     grid[i] = Words.possibleWords[rnd.Range(0, 5)][rnd.Range(0, 3)][rnd.Range(0, 15)];
         }
+        if (grid.Distinct().Count() != 25)
+        {
+            attempts++;
+            goto tryAgain;
+        }
         for (int i = 0; i < 25; i++)
             solution[i] = (Words.possibleWords[cardIndex][ruleIndex].Contains(grid[i]) && Cards.possibleCards[cardIndex][rotationIndex][i] == teamIndex);
         if (solution.Count(b => b) == 0)
