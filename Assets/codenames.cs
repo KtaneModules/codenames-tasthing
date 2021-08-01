@@ -163,6 +163,8 @@ public class codenames : MonoBehaviour
             solving = true;
             Debug.LogFormat("[Codenames #{0}] Module solved!", moduleId);
             moduleSolved = true;
+            mainbutton.gameObject.SetActive(false);
+            togglebutton.gameObject.SetActive(false);
             cblindback.GetComponent<TextMesh>().text = "";
             cblindtext.GetComponent<TextMesh>().text = "";
             StartCoroutine(Solve("Solved!"));
