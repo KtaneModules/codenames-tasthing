@@ -38,14 +38,14 @@ public class codenames : MonoBehaviour
     private static readonly string[] colorNames = new string[2] { "red", "blue" };
     private static readonly string[] soundNames = new string[6] { "card1", "card2", "card3", "card4", "card5", "gunshot" };
 
-    static int moduleIdCounter = 1;
+    private static int moduleIdCounter = 1;
     private Coroutine cycler;
-    int moduleId;
+    private int moduleId;
     private bool moduleSolved;
     private bool assassinated;
     private bool detonating;
 
-    void Awake()
+    private void Awake()
     {
         moduleId = moduleIdCounter++;
         colorblindActive = Colorblind.ColorblindModeActive;
@@ -57,7 +57,7 @@ public class codenames : MonoBehaviour
         GetComponent<KMBombModule>().OnActivate += OnActivate;
     }
 
-    void Start()
+    private void Start()
     {
         posIx = rnd.Range(0, 25);
         if (bomb.GetSerialNumberNumbers().Last() % 2 == 0)
@@ -69,7 +69,7 @@ public class codenames : MonoBehaviour
         Reset();
     }
 
-    void OnActivate()
+    private void OnActivate()
     {
         if (colorblindActive)
         {
@@ -80,10 +80,10 @@ public class codenames : MonoBehaviour
         }
     }
 
-    void Reset()
+    private void Reset()
     {
         var attempts = 0;
-        tryAgain:
+    tryAgain:
         teamIndex = rnd.Range(1, 3);
         cardIndex = rnd.Range(0, 5);
         rotationIndex = rnd.Range(0, 4);
@@ -100,7 +100,7 @@ public class codenames : MonoBehaviour
             goto tryAgain;
         }
         for (int i = 0; i < 25; i++)
-            solution[i] = (Words.possibleWords[cardIndex][ruleIndex].Contains(grid[i]) && Cards.possibleCards[cardIndex][rotationIndex][i] == teamIndex);
+            solution[i] = (Words.possibleWords[cardIndex][ruleIndex].Contains(grid[i]) && cards.possibleCards[cardIndex][rotationIndex][i] == teamIndex);
         if (solution.Count(b => b) == 0)
         {
             attempts++;
@@ -121,7 +121,7 @@ public class codenames : MonoBehaviour
         while (true)
         {
             mainword.text = grid[posIx];
-            mainword.color = ((Cards.possibleCards[cardIndex][rotationIndex][posIx] == 1 || Cards.possibleCards[cardIndex][rotationIndex][posIx] == 2) ? wordcolors[0] : wordcolors[1]);
+            mainword.color = ((cards.possibleCards[cardIndex][rotationIndex][posIx] == 1 || cards.possibleCards[cardIndex][rotationIndex][posIx] == 2) ? wordcolors[0] : wordcolors[1]);
             if (colorblindActive)
             {
                 if (mainword.color == wordcolors[1])
@@ -137,12 +137,12 @@ public class codenames : MonoBehaviour
         }
     }
 
-    void Submit()
+    private void Submit()
     {
         var ix = posIx;
         if (moduleSolved || detonating || pressed[ix])
             return;
-        if (Cards.possibleCards[cardIndex][rotationIndex][ix] == 3)
+        if (cards.possibleCards[cardIndex][rotationIndex][ix] == 3)
         {
             Debug.LogFormat("[Codenames #{0}] You submitted the assassin.", moduleId);
             StartCoroutine(Solve("Big Mistake."));
@@ -210,7 +210,7 @@ public class codenames : MonoBehaviour
         }
     }
 
-    void ToggleCycling()
+    private void ToggleCycling()
     {
         togglebutton.AddInteractionPunch(.5f);
         audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, togglebutton.transform);
@@ -253,10 +253,10 @@ public class codenames : MonoBehaviour
         return false;
     }
 
-    #pragma warning disable 414
+#pragma warning disable 414
     private readonly string TwitchHelpMessage = @"!{0} submit <word> [Submits the card with the specified word] | !{0} colorblind [Toggles colorblind mode]";
-    #pragma warning restore 414
-    IEnumerator ProcessTwitchCommand(string command)
+#pragma warning restore 414
+    private IEnumerator ProcessTwitchCommand(string command)
     {
         if (Regex.IsMatch(command, @"^\s*colorblind\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
         {
@@ -321,7 +321,7 @@ public class codenames : MonoBehaviour
         }
     }
 
-    IEnumerator TwitchHandleForcedSolve()
+    private IEnumerator TwitchHandleForcedSolve()
     {
         speed = true;
         for (int i = 0; i < solution.Length; i++)
